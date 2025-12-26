@@ -586,15 +586,82 @@ curl -X POST http://localhost:8000/table/search \
 
 ---
 
-## Evaluate Data Table (Not Implemented)
+## Evaluate Data Table
 
 Evaluate data table values based on specified criteria.
 
-**Endpoint:** `POST /table/evaluate`
+**Endpoint:** `POST /table/{tableId}/evaluate`
 
-### Status
+### Path Parameters
 
-This endpoint is currently not implemented. The controller function exists but contains no logic.
+- `tableId` (string, required): The data table ID
+
+### Request Body
+
+```json
+{
+  "timezone": "string", // Required: Valid timezone (e.g., "America/New_York")
+  "values": [
+    // Required: Array of evaluation sets
+    {
+      "AttributeNames": ["string"], // Required: Array of attribute names to evaluate
+      "RowValues": {
+        // Required: Key-value pairs of data to evaluate
+        "attribute1": "value1",
+        "attribute2": "value2"
+      },
+      "PrimaryValues": [
+        // Required: Array of primary value objects
+        {
+          "AttributeName": "primary_key",
+          "Value": "value"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Response (200)
+
+```json
+{
+  "message": "Data table evaluation completed successfully",
+  "data": [
+    {
+      "AttributeName": "string",
+      "Value": "string",
+      "EvaluationResult": "string"
+    }
+  ]
+}
+```
+
+### Example
+
+```bash
+curl -X POST http://localhost:8000/table/12345678-1234-1234-1234-123456789012/evaluate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "timezone": "America/New_York",
+    "values": [
+      {
+        "AttributeNames": ["customer_id", "email", "status"],
+        "RowValues": {
+          "customer_id": "12345",
+          "email": "john@example.com",
+          "status": "active"
+        },
+        "PrimaryValues": [
+          {
+            "AttributeName": "customer_id",
+            "Value": "12345"
+          }
+        ]
+      }
+    ]
+  }'
+```
 
 ---
 
@@ -661,4 +728,3 @@ INSTANCE_ID="your-connect-instance-id"
 ```
 
 ---
-

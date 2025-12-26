@@ -26,5 +26,5 @@ PUT /table/{tableId}/primary-values → UpdateDataTablePrimaryValues
 
 # Search & Evaluate
 
-POST /data-tables/search → SearchDataTables
-POST /data-tables/{tableId}/evaluate → EvaluateDataTableValues
+POST /data-tables/search → SearchDataTables - Done
+POST /data-tables/{tableId}/evaluate → EvaluateDataTableValues - Done
