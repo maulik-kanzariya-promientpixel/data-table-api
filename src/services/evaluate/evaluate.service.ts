@@ -26,6 +26,7 @@ export async function evaluteTable(
       const response = await client.send(command);
 
       if (response.$metadata.httpStatusCode !== 200) {
+        console.log(response)
         const err = new Error("Error occurred at: [SERVICE] [EVALUATE-TABLE]");
         err.cause = response.$metadata;
         throw err;
@@ -40,6 +41,8 @@ export async function evaluteTable(
 
     return results;
   } catch (error) {
+
+        console.log(error)
     throw wrapAwsError("SERVICE", "EVALUATE-TABLE", error);
   }
 }

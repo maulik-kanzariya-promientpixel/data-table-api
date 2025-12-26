@@ -41,29 +41,27 @@ export const searchTableSchema = z
     },
   );
 
-// Schema for individual data table values (key-value pairs)
-const DataTableValueSchema = z.record(z.string().min(1), z.string());
 
-// Schema for primary value object
-const PrimaryValueSchema = z.object({
-  AttributeName: z.string().min(1, "Attribute name is required"),
+
+  const PrimaryValueSchema = z.object({
+  AttributeName: z.string().min(1, "AttributeName is required"),
   Value: z.string().min(1, "Value is required"),
 });
 
-// Schema for evaluation set - contains attribute names, row values, and primary values
-const DataTableValueEvaluationSetSchema = z.object({
-  AttributeNames: z
-    .array(z.string().min(1))
-    .min(1, "At least one attribute name is required"),
-  RowValues: DataTableValueSchema,
+const EvaluationValueSchema = z.object({
   PrimaryValues: z
     .array(PrimaryValueSchema)
-    .min(1, "At least one primary value is required"), // Array of PrimaryValue objects
+    .min(1, "At least one PrimaryValue is required"),
+
+  AttributeNames: z
+    .array(z.string().min(1))
+    .min(1, "At least one AttributeName is required"),
 });
 
-export const EvaluateDataTableValuesSchema = z.object({
-  timezone: z.string().min(1, "Timezone is required"),
+export const EvaluateDataTableRequestSchema = z.object({
+  timezone: z.string().min(1, "timezone is required"),
+
   values: z
-    .array(DataTableValueEvaluationSetSchema)
-    .min(1, "At least one evaluation set is required"),
+    .array(EvaluationValueSchema)
+    .min(1, "At least one values entry is required"),
 });

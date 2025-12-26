@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { handleControllerError } from "../utils/error.helper.js";
 import {
-  EvaluateDataTableValuesSchema,
+  EvaluateDataTableRequestSchema,
   searchTableSchema,
 } from "../utils/evaluation.schema.js";
 import searchTable from "../services/evaluate/search.service.js";
@@ -28,16 +28,16 @@ export async function searchDataTable(req: Request, res: Response) {
 
 export async function evaluteDataTable(req: Request, res: Response) {
   try {
-    const parsedData = EvaluateDataTableValuesSchema.parse(req.body);
+    const parsedData = EvaluateDataTableRequestSchema.parse(req.body);
 
     const evaluatedData = await evaluteTable(
       req.tableId,
       parsedData.timezone,
-      parsedData.values,
+      parsedData.values
     );
 
     return res.status(200).json({
-      message: "Data table evaluation completed successfully",
+      message: "Data table evaluation completed",
       data: evaluatedData,
     });
   } catch (error) {
