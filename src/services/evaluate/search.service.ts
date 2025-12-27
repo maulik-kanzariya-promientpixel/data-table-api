@@ -9,7 +9,7 @@ export default async function searchTable(
   operationType: "AND" | "OR",
   name?: string,
   description?: string,
-  tags?: Record<string, string>,
+  tags?: Record<string, string>
 ) {
   const tables: any[] = [];
   let nextToken: string | undefined;

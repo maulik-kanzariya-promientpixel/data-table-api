@@ -7,6 +7,7 @@ const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 const sessionToken = process.env.AWS_SESSION_TOKEN;
 
 if (!accessKeyId || !secretAccessKey) {
+  console.log(accessKeyId,secretAccessKey,sessionToken)
   throw new Error(
     "AWS credentials are required: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set",
   );

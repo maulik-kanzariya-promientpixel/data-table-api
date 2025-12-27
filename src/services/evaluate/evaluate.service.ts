@@ -8,7 +8,7 @@ import client from "../../config/connect-client.js";
 export async function evaluteTable(
   tableId: string,
   timezone: string,
-  values: DataTableValueEvaluationSet[],
+  values: DataTableValueEvaluationSet[]
 ) {
   try {
     let nextToken: string | undefined;
@@ -26,7 +26,7 @@ export async function evaluteTable(
       const response = await client.send(command);
 
       if (response.$metadata.httpStatusCode !== 200) {
-        console.log(response)
+        console.log(response);
         const err = new Error("Error occurred at: [SERVICE] [EVALUATE-TABLE]");
         err.cause = response.$metadata;
         throw err;
@@ -41,8 +41,6 @@ export async function evaluteTable(
 
     return results;
   } catch (error) {
-
-        console.log(error)
     throw wrapAwsError("SERVICE", "EVALUATE-TABLE", error);
   }
 }

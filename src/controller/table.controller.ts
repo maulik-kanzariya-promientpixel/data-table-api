@@ -28,7 +28,7 @@ export async function listDataTables(_: Request, res: Response) {
 
 export async function createDataTable(
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<Response> {
   try {
     const parsedData = CreateDataTableSchema.parse(req.body);
