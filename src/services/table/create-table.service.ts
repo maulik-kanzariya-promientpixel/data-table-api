@@ -3,10 +3,10 @@ import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 import type { ITable } from "../../types/table.js";
 
-export default async function createTable(params: ITable) {
+export default async function createTable(instanceId: string, params: ITable) {
   try {
     const command = new CreateDataTableCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       Name: params.name,
       TimeZone: params.timezone,
       Status: params.status,

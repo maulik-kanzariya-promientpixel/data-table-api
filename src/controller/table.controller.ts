@@ -15,9 +15,9 @@ import {
   updateTable,
 } from "../services/table/index.js";
 
-export async function listDataTables(_: Request, res: Response) {
+export async function listDataTables(req: Request, res: Response) {
   try {
-    const tablesList = await listTables();
+    const tablesList = await listTables(req.instanceId);
     return res.status(200).json({
       list: tablesList,
     });
@@ -48,7 +48,7 @@ export async function createDataTable(
         }),
     };
 
-    const table = await createTable(data);
+    const table = await createTable(req.instanceId, data);
 
     return res.status(201).json(table);
   } catch (err) {
@@ -66,7 +66,7 @@ export async function deleteDataTable(req: Request, res: Response) {
       });
     }
 
-    const deletedTable = await deleteTable(tableId);
+    const deletedTable = await deleteTable(req.instanceId, tableId);
 
     return res.status(200).json({
       message: "Table deleted",
@@ -86,7 +86,7 @@ export async function getDataTableById(req: Request, res: Response) {
         message: "Table id is required",
       });
     }
-    const dataTable = await getTableById(tableId);
+    const dataTable = await getTableById(req.instanceId, tableId);
     res.status(200).json(dataTable);
   } catch (err) {
     return handleControllerError(res, err);
@@ -105,7 +105,7 @@ export async function updateDataTable(req: Request, res: Response) {
 
     const parsedData = UpdateDataTableSchema.parse(req.body);
 
-    const updatedDataTable = await updateTable(tableId, {
+    const updatedDataTable = await updateTable(req.instanceId, tableId, {
       name: parsedData.name,
       timezone: parsedData.timezone,
       description: parsedData.description,

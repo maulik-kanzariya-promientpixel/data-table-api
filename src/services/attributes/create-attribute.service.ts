@@ -7,16 +7,17 @@ import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 
 export default async function createTableAttribute(
+  instanceId: string,
   DataTableId: string,
   name: string,
   valueType: DataTableAttributeValueType,
   description: string | undefined,
   primary: boolean | undefined,
-  validation: Validation | undefined,
+  validation: Validation | undefined
 ) {
   try {
     const command = new CreateDataTableAttributeCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId,
       Name: name,
       ValueType: valueType,

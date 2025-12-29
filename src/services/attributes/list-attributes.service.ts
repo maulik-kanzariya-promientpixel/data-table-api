@@ -5,13 +5,16 @@ import {
 import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
-export default async function listTableAttributes(tableId: string) {
+export default async function listTableAttributes(
+  instanceId: string,
+  tableId: string
+) {
   try {
     let nextToken: string | undefined;
     const attributes: DataTableAttribute[] = [];
     do {
       const command = new ListDataTableAttributesCommand({
-        InstanceId: process.env.INSTANCE_ID,
+        InstanceId: instanceId,
         DataTableId: tableId,
         NextToken: nextToken,
       });

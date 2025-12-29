@@ -6,12 +6,13 @@ import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
 export default async function batchDeleteValue(
+  instanceId: string,
   tableId: string,
   value: DataTableDeleteValueIdentifier[] | undefined
 ) {
   try {
     const command = new BatchDeleteDataTableValueCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId: tableId,
       Values: value,
     });

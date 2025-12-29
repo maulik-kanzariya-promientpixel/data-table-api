@@ -7,6 +7,7 @@ import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
 export default async function updateTableAttribute(
+  instanceId: string,
   tableId: string,
   oldName: string,
   valueType: DataTableAttributeValueType,
@@ -20,14 +21,9 @@ export default async function updateTableAttribute(
     description?: string;
     primary?: boolean;
     validation?: Validation;
-  },
+  }
 ) {
   try {
-    const instanceId = process.env.INSTANCE_ID;
-    if (!instanceId) {
-      throw new Error("INSTANCE_ID is not configured");
-    }
-
     const command = new UpdateDataTableAttributeCommand({
       InstanceId: instanceId,
       DataTableId: tableId,

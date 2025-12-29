@@ -15,6 +15,7 @@ declare global {
   namespace Express {
     export interface Request {
       tableId: string;
+      instanceId: string;
     }
   }
 }

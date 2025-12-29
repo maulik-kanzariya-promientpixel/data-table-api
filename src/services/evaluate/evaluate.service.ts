@@ -6,6 +6,7 @@ import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
 export async function evaluteTable(
+  instanceId: string,
   tableId: string,
   timezone: string,
   values: DataTableValueEvaluationSet[]
@@ -16,7 +17,7 @@ export async function evaluteTable(
 
     do {
       const command = new EvaluateDataTableValuesCommand({
-        InstanceId: process.env.INSTANCE_ID,
+        InstanceId: instanceId,
         DataTableId: tableId,
         TimeZone: timezone,
         Values: values,

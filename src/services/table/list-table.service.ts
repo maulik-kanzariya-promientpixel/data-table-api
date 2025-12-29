@@ -5,20 +5,14 @@ import {
 import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 
-const InstanceId = process.env.INSTANCE_ID;
-
-if (!InstanceId) {
-  throw new Error("INSTANCE_ID environment variable is missing");
-}
-
-export default async function listTables() {
+export default async function listTables(instanceId: string) {
   try {
     let nextToken: string | undefined;
     let tableList: DataTableSummary[] = [];
 
     do {
       const command = new ListDataTablesCommand({
-        InstanceId,
+        InstanceId: instanceId,
         NextToken: nextToken,
       });
       const response = await client.send(command);

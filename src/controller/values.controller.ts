@@ -23,6 +23,7 @@ export async function getValues(req: Request, res: Response) {
     const parsed = getValuesSchema.parse(req.body);
 
     const values = await listValues(
+      req.instanceId,
       req.tableId,
       parsed?.recordIds,
       parsed?.primaryValues
@@ -41,6 +42,7 @@ export async function getPrimaryValues(req: Request, res: Response) {
     const parsed = getValuesSchema.parse(req.body);
 
     const values = await listTablePrimaryValue(
+      req.instanceId,
       req.tableId,
       parsed?.recordIds,
       parsed?.primaryValues
@@ -56,13 +58,12 @@ export async function getPrimaryValues(req: Request, res: Response) {
 
 export async function updatePrimaryValue(req: Request, res: Response) {
   try {
-    console.log(req.body);
-
     const { primaryValue, newPrimaryValue } = updatePrimaryValueSchema.parse(
       req.body
     );
 
     const updatedValues = await updateTablePrimaryValue(
+      req.instanceId,
       req.tableId,
       primaryValue,
       newPrimaryValue
@@ -81,6 +82,7 @@ export async function batchCreateTableValues(req: Request, res: Response) {
     const parsed = batchValue.parse(req.body);
 
     const createValueResult = await batchCreateValue(
+      req.instanceId,
       req.tableId,
       parsed.values
     );
@@ -95,7 +97,11 @@ export async function batchUpdateTableValues(req: Request, res: Response) {
   try {
     const parsed = batchValue.parse(req.body);
 
-    const updatedValues = await batchUpdateValue(req.tableId, parsed.values);
+    const updatedValues = await batchUpdateValue(
+      req.instanceId,
+      req.tableId,
+      parsed.values
+    );
 
     return res.status(200).json({ values: updatedValues });
   } catch (error) {
@@ -107,7 +113,11 @@ export async function batchDeleteTableValues(req: Request, res: Response) {
   try {
     const parsed = batchDeleteValueSchema.parse(req.body);
 
-    const deletedValues = await batchDeleteValue(req.tableId, parsed.values);
+    const deletedValues = await batchDeleteValue(
+      req.instanceId,
+      req.tableId,
+      parsed.values
+    );
 
     return res.status(200).json({ values: deletedValues });
   } catch (error) {
@@ -119,7 +129,11 @@ export async function batchDescribeTableValues(req: Request, res: Response) {
   try {
     const parsed = batchDescribeSchema.parse(req.body);
 
-    const deletedValues = await batchDescribeValue(req.tableId, parsed.values);
+    const deletedValues = await batchDescribeValue(
+      req.instanceId,
+      req.tableId,
+      parsed.values
+    );
 
     return res.status(200).json({ values: deletedValues });
   } catch (error) {

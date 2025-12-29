@@ -2,10 +2,13 @@ import { DeleteDataTableCommand } from "@aws-sdk/client-connect";
 import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 
-export default async function deleteTable(DataTableId: string) {
+export default async function deleteTable(
+  instanceId: string,
+  DataTableId: string
+) {
   try {
     const command = new DeleteDataTableCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId,
     });
 

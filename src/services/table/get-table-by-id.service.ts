@@ -2,10 +2,13 @@ import { DescribeDataTableCommand } from "@aws-sdk/client-connect";
 import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
-export default async function getTableById(DataTableId: string) {
+export default async function getTableById(
+  instanceId: string,
+  DataTableId: string
+) {
   try {
     const command = new DescribeDataTableCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId,
     });
 

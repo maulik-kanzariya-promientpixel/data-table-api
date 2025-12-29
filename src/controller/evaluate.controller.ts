@@ -12,10 +12,11 @@ export async function searchDataTable(req: Request, res: Response) {
     const parsedData = searchTableSchema.parse(req.body);
 
     const tables = await searchTable(
+      req.instanceId,
       parsedData.operationType,
       parsedData.name,
       parsedData.description,
-      parsedData.tags,
+      parsedData.tags
     );
 
     return res.status(200).json({
@@ -31,6 +32,7 @@ export async function evaluteDataTable(req: Request, res: Response) {
     const parsedData = EvaluateDataTableRequestSchema.parse(req.body);
 
     const evaluatedData = await evaluteTable(
+      req.instanceId,
       req.tableId,
       parsedData.timezone,
       parsedData.values

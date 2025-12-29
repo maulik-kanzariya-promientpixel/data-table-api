@@ -6,17 +6,18 @@ import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 
 export default async function updateTable(
+  instanceId: string,
   DataTableId: string,
   parsedData: {
     name: string;
     timezone: string;
     description: string | undefined;
     valueLockLevel: DataTableLockLevel;
-  },
+  }
 ) {
   try {
     const command = new UpdateDataTableMetadataCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId,
       Name: parsedData.name,
       TimeZone: parsedData.timezone,

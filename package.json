@@ -1,27 +1,43 @@
 {
-  "name": "data-table",
+  "name": "aws-connect-data-tables-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/lambda.js",
   "scripts": {
     "build": "tsc --build",
-    "start": "node --env-file=.env build/app.js",
-    "dev": "tsx watch src/app.ts"
+    "start": "node build/app.js",
+    "dev": "tsx watch src/app.ts",
+    "lambda:build": "npm run build && npm run lambda:package",
+    "lambda:package": "cd build && zip -r ../lambda-deployment.zip . && cd ..",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean && npm run type-check"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "aws",
+    "lambda",
+    "connect",
+    "data-tables",
+    "api",
+    "typescript",
+    "express"
+  ],
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@aws-sdk/client-connect": "^3.956.0",
-    "dotenv": "^17.2.3",
+    "@vendia/serverless-express": "^4.12.6",
     "express": "^5.2.1",
     "zod": "^4.2.1"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
+    "@types/aws-lambda": "^8.10.159",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.3",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "typescript": "^5.0.0"
   }
 }

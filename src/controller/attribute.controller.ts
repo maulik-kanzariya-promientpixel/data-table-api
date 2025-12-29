@@ -20,12 +20,13 @@ export async function createAttribute(req: Request, res: Response) {
     const parsedData = CreateDataTableAttributeInputSchema.parse(req.body);
 
     const createdAttribute = await createTableAttribute(
+      req.instanceId,
       req.tableId,
       parsedData.name,
       parsedData.valueType,
       parsedData.description,
       parsedData.primary,
-      parsedData.validation,
+      parsedData.validation
     );
 
     return res.status(201).json({
@@ -47,7 +48,11 @@ export async function deleteAttribute(req: Request, res: Response) {
       });
     }
 
-    const deletedAttribute = await deleteTableAttribute(req.tableId, name);
+    const deletedAttribute = await deleteTableAttribute(
+      req.instanceId,
+      req.tableId,
+      name
+    );
 
     return res.status(200).json({
       message: "Table Attribute deleted sucesfully",
@@ -60,7 +65,7 @@ export async function deleteAttribute(req: Request, res: Response) {
 
 export async function listAttributes(req: Request, res: Response) {
   try {
-    const attributes = await listTableAttributes(req.tableId);
+    const attributes = await listTableAttributes(req.instanceId, req.tableId);
 
     res.status(200).json({ attributes });
   } catch (error) {
@@ -78,7 +83,11 @@ export async function getAttributeById(req: Request, res: Response) {
       });
     }
 
-    const attribute = await getTableAttributeById(req.tableId, name);
+    const attribute = await getTableAttributeById(
+      req.instanceId,
+      req.tableId,
+      name
+    );
 
     res.status(200).json({
       attribute,
@@ -107,10 +116,11 @@ export async function updateAttribute(req: Request, res: Response) {
     };
 
     const updatedAttribute = await updateTableAttribute(
+      req.instanceId,
       req.tableId,
       parsedData.name,
       parsedData.valueType,
-      updateData,
+      updateData
     );
 
     return res.status(200).json({

@@ -3,12 +3,13 @@ import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
 export default async function getTableAttributeById(
+  instanceId: string,
   tableId: string,
-  name: string,
+  name: string
 ) {
   try {
     const command = new DescribeDataTableAttributeCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId: tableId,
       AttributeName: name,
     });
@@ -17,7 +18,7 @@ export default async function getTableAttributeById(
 
     if (response.$metadata.httpStatusCode !== 200) {
       const err = new Error(
-        "Error occurred at: [SERVICE] [GET-ATTRIBUTE-BY-ID]",
+        "Error occurred at: [SERVICE] [GET-ATTRIBUTE-BY-ID]"
       );
       err.cause = response.$metadata;
       throw err;

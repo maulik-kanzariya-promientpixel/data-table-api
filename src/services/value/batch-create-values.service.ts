@@ -6,12 +6,13 @@ import { wrapAwsError } from "../../utils/error.helper.js";
 import client from "../../config/connect-client.js";
 
 export default async function batchCreateValue(
+  instanceId: string,
   tableId: string,
   value: DataTableValue[] | undefined
 ) {
   try {
     const command = new BatchCreateDataTableValueCommand({
-      InstanceId: process.env.INSTANCE_ID,
+      InstanceId: instanceId,
       DataTableId: tableId,
       Values: value,
     });

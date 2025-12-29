@@ -8,6 +8,7 @@ interface IprimaryValue {
 }
 
 export default async function listTablePrimaryValue(
+  instanceId: string,
   tableId: string,
   recordIds?: string[],
   primaryValue?: IprimaryValue[]
@@ -18,7 +19,7 @@ export default async function listTablePrimaryValue(
   try {
     do {
       const command = new ListDataTablePrimaryValuesCommand({
-        InstanceId: process.env.INSTANCE_ID,
+        InstanceId: instanceId,
         DataTableId: tableId,
         PrimaryAttributeValues: primaryValue,
         RecordIds: recordIds,

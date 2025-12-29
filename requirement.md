@@ -17,10 +17,10 @@ DELETE /table/{tableId}/attribute/{attributeId} → DeleteDataTableAttribute - D
 # Values
 
 GET /table/{tableId}/values → ListDataTableValues - Done
-POST /table/{tableId}/values/batch → BatchCreateDataTableValue
-PUT /table/{tableId}/values/batch → BatchUpdateDataTableValue
-DELETE /table/{tableId}/values/batch → BatchDeleteDataTableValue
-POST /table/{tableId}/values/search → BatchDescribeDataTableValue
+POST /table/{tableId}/values/batch → BatchCreateDataTableValue - Done
+PUT /table/{tableId}/values/batch → BatchUpdateDataTableValue - Done 
+DELETE /table/{tableId}/values/batch → BatchDeleteDataTableValue - Done
+POST /table/{tableId}/values/search → BatchDescribeDataTableValue - Done
 GET /table/{tableId}/primary-values → ListDataTablePrimaryValues - Done
 PUT /table/{tableId}/primary-values → UpdateDataTablePrimaryValues - Done
 

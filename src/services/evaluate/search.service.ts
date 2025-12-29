@@ -6,6 +6,7 @@ import client from "../../config/connect-client.js";
 import { wrapAwsError } from "../../utils/error.helper.js";
 
 export default async function searchTable(
+  instanceId: string,
   operationType: "AND" | "OR",
   name?: string,
   description?: string,
@@ -61,7 +62,7 @@ export default async function searchTable(
 
     do {
       const command = new SearchDataTablesCommand({
-        InstanceId: process.env.INSTANCE_ID!,
+        InstanceId: instanceId,
         ...(SearchCriteria && { SearchCriteria }),
         ...(SearchFilter && { SearchFilter }),
         NextToken: nextToken,
